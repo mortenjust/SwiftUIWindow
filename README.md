@@ -1,7 +1,5 @@
 # SwiftUIWindow
-
 Open a new macOS (10.12+) window with SwiftUI contents. 
-
 
 # Installing
 Paste this repo's URL into your Package Dependencies
@@ -12,7 +10,7 @@ Paste this repo's URL into your Package Dependencies
 
 # Usage
 
-## Simple stnadard window
+## Simple standard window
 ```swift
   SwiftUIWindow.open {
         Text("Hello new window")
