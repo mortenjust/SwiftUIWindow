@@ -9,6 +9,9 @@ Paste this repo's URL into your Package Dependencies
 
 
 # Usage
+```
+import SwiftUIWindow
+```
 
 ## Simple standard window
 ```swift
