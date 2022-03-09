@@ -10,7 +10,7 @@ import AppKit
 import SwiftUI
 
 public struct WindowModifier<Content> where Content: View {
-    let window : SwiftUIWindow<Content>
+    public let window : SwiftUIWindow<Content>
     
     
     @discardableResult

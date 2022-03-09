@@ -32,9 +32,10 @@ extension SwiftUIWindow {
     public static func open(@ViewBuilder content: () -> Content) -> WindowModifier<Content> {
         let window = SwiftUIWindow(content: content)
         let wc = NSWindowController(window: window)
+        
+        print("showing window")
         wc.showWindow(nil)
         
-        // standard settings
         window.center()
         
         return window.windowModifier
