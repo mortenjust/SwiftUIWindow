@@ -21,6 +21,9 @@ public class SwiftUIWindow<Content> : NSWindow where Content: View {
         super.init(contentRect: .zero, styleMask: [.titled, .closable, .miniaturizable, .resizable], backing: .buffered, defer: true)
         
         hostingView = HostingView(rootView: content(self))
+        
+        hostingView.isFlipped = false
+        
         contentView = hostingView
         
         windowModifier = WindowModifier(window: self)
@@ -38,10 +41,15 @@ extension SwiftUIWindow {
         let window = SwiftUIWindow(content: content)
         let wc = NSWindowController(window: window)
         
+        
+        
         print("showing window")
         wc.showWindow(nil)
         
+         
+        
         window.center()
+        
         
         return window.windowModifier
     }

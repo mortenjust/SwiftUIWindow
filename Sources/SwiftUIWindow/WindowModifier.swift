@@ -50,6 +50,12 @@ public struct WindowModifier<Content> where Content: View {
     }
     
     @discardableResult
+    public func level(_ level : NSWindow.Level) -> WindowModifier {
+        window.level = level
+        return self
+    }
+    
+    @discardableResult
     public func movable(_ movable : Bool) -> WindowModifier {
         window.isMovable = movable
         return self
