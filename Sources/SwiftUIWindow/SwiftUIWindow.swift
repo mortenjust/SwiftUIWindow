@@ -14,11 +14,13 @@ import SwiftUI
 public class SwiftUIWindow<Content> : NSWindow where Content: View {
     
     var windowModifier : WindowModifier<Content>!
-    var hostingView : HostingView<Content>
+    var hostingView : HostingView<Content>!
     
-    public init(@ViewBuilder content: () -> Content) {
-        hostingView = HostingView(rootView: content())
+    public init(@ViewBuilder content: (NSWindow) -> Content) {
+        
         super.init(contentRect: .zero, styleMask: [.titled, .closable, .miniaturizable, .resizable], backing: .buffered, defer: true)
+        
+        hostingView = HostingView(rootView: content(self))
         contentView = hostingView
         
         windowModifier = WindowModifier(window: self)
@@ -29,7 +31,10 @@ public class SwiftUIWindow<Content> : NSWindow where Content: View {
 extension SwiftUIWindow {
     
     @discardableResult
-    public static func open(@ViewBuilder content: () -> Content) -> WindowModifier<Content> {
+    public static func open(@ViewBuilder content: (NSWindow) -> Content) -> WindowModifier<Content> {
+        
+        
+        
         let window = SwiftUIWindow(content: content)
         let wc = NSWindowController(window: window)
         
