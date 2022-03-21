@@ -87,6 +87,51 @@ public struct WindowModifier<Content> where Content: View {
     
     
     @discardableResult
+    public func closeOnEscape(_ close: Bool) -> WindowModifier {
+        
+        func localPress(_ event: NSEvent) -> NSEvent? {
+            press(event); return event
+        }
+        
+        func press(_ event : NSEvent) {
+            if event.keyCode == 53 {
+                window.close()
+            }
+        }
+        
+        NSEvent.addGlobalMonitorForEvents(matching: .keyDown, handler: press(_:))
+        NSEvent.addLocalMonitorForEvents(matching: .keyDown, handler: localPress(_:))
+        
+        return self
+    }
+    
+    
+    @discardableResult
+    public func onKeyPresses(modifiers: NSEvent.ModifierFlags?, specialKeys: NSEvent.SpecialKey?, keyCode: UInt16, perform: @escaping (NSWindow) -> Void) -> WindowModifier {
+        
+        func localPress(_ event: NSEvent) -> NSEvent? {
+            press(event); return event
+        }
+        
+        func press(_ event : NSEvent) {
+            
+            let hasModifiers = event.modifierFlags == modifiers
+            let hasSpecials = event.specialKey == event.specialKey
+            let hasKeycode = event.keyCode == keyCode
+            
+            if hasModifiers && hasSpecials && hasKeycode {
+                NSEvent.removeMonitor(self)
+                perform(window)
+            }
+        }
+        
+        NSEvent.addGlobalMonitorForEvents(matching: .keyDown, handler: press(_:))
+        NSEvent.addLocalMonitorForEvents(matching: .keyDown, handler: localPress(_:))
+        
+        return self
+    }
+    
+    @discardableResult
     public func clickable(_ clickable : Bool) -> WindowModifier {
         window.ignoresMouseEvents = !clickable
         return self
