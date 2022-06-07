@@ -1,5 +1,5 @@
 # SwiftUIWindow
-Open a new macOS (10.12+) window with SwiftUI contents. 
+Open a new macOS (10.12+) window with SwiftUI contents. Note: macOS Ventura (fall 2022) has [new ways of creating windows from SwiftUI](https://developer.apple.com/documentation/swiftui/window). 
 
 # Installing
 Paste this repo's URL into your Package Dependencies
@@ -15,7 +15,7 @@ import SwiftUIWindow
 
 ## Simple standard window
 ```swift
-  SwiftUIWindow.open {
+  SwiftUIWindow.open { _ in 
         Text("Hello new window")
         .frame(width: 400, height: 200) // window size        
     }                                
@@ -25,7 +25,7 @@ import SwiftUIWindow
 This will open a floating window with no standard macOS window UI. You can move the window by dragging anywhere in the visible area.
 
 ```swift
-  SwiftUIWindow.open {
+  SwiftUIWindow.open { _ in 
         VStack { 
             Text("Hello")
             Button("Click me") { print("clicked") }
